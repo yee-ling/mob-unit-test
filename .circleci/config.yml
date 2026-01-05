@@ -11,9 +11,9 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-        keys:
-          - gradle-{{ checksum "build.gradle.kts" }} - {{ checksum "app/build.gradle.kts" }}
-          - gradle-
+          keys:
+            - gradle-{{ checksum "build.gradle.kts" }} - {{ checksum "app/build.gradle.kts" }}
+            - gradle-
       - run:
           name: Change permission for gradlew
           command: chmod +x gradlew
@@ -21,11 +21,12 @@ jobs:
           name: Resolve all the dependencies
           command: ./gradlew dependencies
       - save_cache:
-        paths:
-          - ~/.gradle
-        key: gradle-{{ checksum "build.gradle.kts" }} - {{ checksum "app/build.gradle.kts" }}
-      - android/run-tests:
-        test_command: ./gradlew testDebugUnitTest
+          paths:
+            - ~/.gradle
+          key: gradle-{{ checksum "build.gradle.kts" }} - {{ checksum "app/build.gradle.kts" }}
+      - run:
+          name: Run Unit Test
+          command: ./gradlew testDebugUnitTest
 
 workflows:
   run-unit-test:
