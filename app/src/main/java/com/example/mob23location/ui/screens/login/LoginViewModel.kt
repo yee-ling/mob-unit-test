@@ -3,7 +3,6 @@ package com.example.mob23location.ui.screens.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mob23location.data.repo.IUserRepo
-import com.example.mob23location.data.repo.UserRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.delay
@@ -15,7 +14,7 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val repo: IUserRepo = UserRepo()
+    private val repo: IUserRepo
 ): ViewModel() {
     private val _finish = MutableSharedFlow<Unit>(replay = 1)
     val finish = _finish.asSharedFlow()
